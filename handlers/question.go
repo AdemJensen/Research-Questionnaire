@@ -112,11 +112,11 @@ func QuestionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	switch params.PageType {
-	case "scene":
+	case "s":
 		err = scenarioTmpl.Execute(w, renderCtx)
-	case "finish":
+	case "f":
 		err = finishTmpl.Execute(w, renderCtx)
-	case "question":
+	case "q":
 		err = questionTmpl.Execute(w, renderCtx)
 	}
 	if err != nil {

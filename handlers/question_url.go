@@ -45,14 +45,14 @@ func NewQuestionUrlBase(totalQuestionNum int, params *Parameters) *QuestionUrlBa
 }
 
 type Parameters struct {
-	PageType        string `json:"pt"`  // scene, finish, question
+	PageType        string `json:"pt"`  // s, f, q
 	QuestionnaireID int64  `json:"id"`  // 问卷ID
 	QuestionIndex   int    `json:"idx"` // 问题索引
 }
 
 func GenerateScenarioPageParam(questionnaireID int64) string {
 	params := Parameters{
-		PageType:        "scene",
+		PageType:        "s",
 		QuestionnaireID: questionnaireID,
 	}
 	v, _ := json.Marshal(params)
@@ -61,7 +61,7 @@ func GenerateScenarioPageParam(questionnaireID int64) string {
 
 func GenerateFinishPageParam(questionnaireID int64) string {
 	params := Parameters{
-		PageType:        "finish",
+		PageType:        "f",
 		QuestionnaireID: questionnaireID,
 	}
 	v, _ := json.Marshal(params)
@@ -70,7 +70,7 @@ func GenerateFinishPageParam(questionnaireID int64) string {
 
 func GenerateQuestionPageParam(questionnaireID int64, questionIndex int) string {
 	params := Parameters{
-		PageType:        "question",
+		PageType:        "q",
 		QuestionnaireID: questionnaireID,
 		QuestionIndex:   questionIndex,
 	}
