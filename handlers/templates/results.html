@@ -52,9 +52,9 @@
     <tr>
         <td><a href="{{.Url}}">{{.ID}}</a></td> <!-- 问卷ID -->
         {{if $.DisplayAll}}
-        <th>{{.UrlDisplay}}</th>
-        <th>{{.CreateTime}}</th>
-        <th>{{.LastFillTime}}</th>
+        <td>{{.UrlDisplay}}</td>
+        <td>{{.CreateTime}}</td>
+        <td>{{.LastFillTime}}</td>
         {{end}}
         <td>{{.Comment}}</td> <!-- 问卷Comment -->
         {{range .Answers}} <!-- 遍历每个问卷的答案 -->

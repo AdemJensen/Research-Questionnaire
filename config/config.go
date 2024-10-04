@@ -10,6 +10,7 @@ import (
 type Config struct {
 	DbConUrl        string `json:"db_con_url"`
 	Host            string `json:"host"`
+	Serve           string `json:"serve"`
 	NQuestionnaires int    `json:"n_questionnaires"`
 	NQuestions      int    `json:"n_questions"`
 	NReviews        int    `json:"n_reviews"`

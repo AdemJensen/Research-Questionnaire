@@ -7,7 +7,8 @@ test:
 	go test -v ./...
 
 build:
-	go build -o output/
+	go build -o output/darwin
+	GOOS=linux GOARCH=amd64 go build -o output/linux-amd64
 
 resources:
 	mkdir output

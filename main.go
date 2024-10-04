@@ -49,7 +49,7 @@ func main() {
 	log.Printf("All questionnaires page will start at %s\n", config.Conf.Host+"/results?pwd=123456&show_all=1")
 
 	// 启动服务器
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(config.Conf.Serve, nil)
 	if err != nil {
 		log.Fatalf("Error when ListenAndServe: %v", err)
 		return
