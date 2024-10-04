@@ -30,8 +30,20 @@ Then, you can configure the `config.json` file with the database configuration:
 "db_con_url": "<db_username>:<db_pass>@tcp(<db_host>:<db_password>)/<db_name>?charset=utf8mb4&parseTime=True&loc=Local",
 ```
 
-After you get everything set up, you can run the program by executing the binary:
+After you get everything set up, use the following command to create database tables:
+
 ```bash
-cd output
+./darwin migrate_db
+```
+
+And generate some questions for your db:
+
+```bash
+./darwin gen_questions
+```
+
+Finally, start the server:
+
+```bash
 ./darwin
 ```
