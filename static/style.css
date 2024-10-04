@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.product-section {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-image {
+    max-width: 300px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+.reviews-section {
+    flex: 2;
+    padding: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.review-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.review-content {
+    font-size: 14px;
+    word-wrap: break-word; /* 自动换行 */
+    word-break: break-all; /* 强制打断长单词 */
+}
+
+.question-section {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #ddd;
+}
+
+.question-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.option {
+    margin: 0 15px;
+}
+
+.submit-button {
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.blue-button {
+    margin-top: 20px;
+    background-color: #4c81af;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blue-button:hover {
+    background-color: #2f6c93;
+}
+
+.question-navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.question-navigation button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.question-navigation .completed {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.question-navigation .incomplete {
+    background-color: white;
+    color: #333;
+}
+
+.question-navigation .current {
+    background-color: #2592ff;
+    color: white;
+}
+
+.question-navigation button:hover {
+    background-color: #ddd;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{if .IsQuestionnaireDone}}Completed{{else}}Questionnaire Not Done{{end}}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    .scenario-container {
+      text-align: center;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+    }
+
+    .scenario-container h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .scenario-container p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="scenario-container">
+  {{if .IsQuestionnaireDone}}
+  <h1>Thank you!</h1>
+  <p>We have received your answers, thank you again for your patience.</p>
+  <p>Your Questionnaire ID is {{.Questionnaire.ID}}</p>
+  <img src="/static/thanks.jpg" alt="Thanks" class="product-image">
+  {{else}}
+  <h1>Your questionnaire is not completed</h1>
+  <p>The following questions are not completed: {{.NotAnsweredQuestions}}</p>
+  <p>Your Questionnaire ID is {{.Questionnaire.ID}}</p>
+  <img src="/static/please.jpg" alt="Please" class="product-image">
+  <div style="padding-top: 20px"><a href="{{.UrlBase.FirstQuestion}}" class="blue-button">Resume</a></div>
+  {{end}}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Statistics</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        table, th, td {
+            border: 1px solid #dddddd;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Questionnaire Statistics</h1>
+{{range $index, $con := (index .Content 0).TypeStr}} <!-- 动态生成问题列头 -->
+<label>Q{{add $index 1}} = <{{$con}}></label>
+{{end}}
+<table>
+    <thead>
+    <tr>
+        <th>Questionnaire ID</th>
+        {{if .DisplayAll}}
+        <th>Url</th>
+        <th>Created At</th>
+        <th>Last Fill</th>
+        {{end}}
+        <th>Comment</th>
+        {{range $index, $seq := (index .Content 0).Answers}} <!-- 动态生成问题列头 -->
+        <th>Q{{add $index 1}}</th>
+        {{end}}
+    </tr>
+    </thead>
+    <tbody>
+    {{range .Content}} <!-- 每个问卷对应表格的一行 -->
+    <tr>
+        <td><a href="{{.Url}}">{{.ID}}</a></td> <!-- 问卷ID -->
+        {{if $.DisplayAll}}
+        <th>{{.UrlDisplay}}</th>
+        <th>{{.CreateTime}}</th>
+        <th>{{.LastFillTime}}</th>
+        {{end}}
+        <td>{{.Comment}}</td> <!-- 问卷Comment -->
+        {{range .Answers}} <!-- 遍历每个问卷的答案 -->
+        <td>{{if not (eq . 0)}}{{.}}{{end}}</td>
+        {{end}}
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+
+</body>
+</html>

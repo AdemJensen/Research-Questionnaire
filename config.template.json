@@ -1,0 +1,6 @@
+{
+  "db_con_url": "root:12345678@tcp(127.0.0.1:3306)/research_questionnaire?charset=utf8mb4&parseTime=True&loc=Local",
+  "n_questionnaires": 25,
+  "n_questions": 12,
+  "n_reviews": 6
+}

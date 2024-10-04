@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        // 使用 AJAX 发送表单数据，不跳转页面
+        function autoSubmit() {
+            // 获取表单元素
+            const form = document.getElementById("questionForm");
+            const formData = new FormData(form);
+
+            // Convert FormData to URL-encoded string
+            const urlEncodedData = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                urlEncodedData.append(key, value);
+            }
+
+            // Send the form data using fetch with application/x-www-form-urlencoded
+            fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: urlEncodedData.toString(),  // URL-encoded string
+            })
+                .then(response => response.text())
+                .then(result => {
+                    console.log("Form submitted:", result);
+                    if (result !== "OK") {
+                        alert("Failed to submit your answer. Please try again.");
+                    }
+                    // Optional: Handle the result or navigate to the next page
+                })
+                .catch(error => {
+                    console.error("Error submitting form:", error);
+                    alert("Failed to submit your answer. Please try again.");
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Question {{add .Question.Index 1}} / {{.TotalQuestions}}</h1>
+<div class="container">
+
+    <div class="product-section">
+        <h2>Product Info</h2>
+        <img src="{{.UrlBase.ProductImage}}" alt="Product Image" class="product-image">
+    </div>
+
+    <div class="reviews-section">
+        <h2>Reviews</h2>
+        {{range $review := .Question.Content.Reviews}}
+        <div class="review-item">
+            <img src="/{{$review.AvatarUri}}" alt="Avatar" class="avatar">
+            <div class="review-content">
+                <strong>{{$review.Nickname}}</strong>
+                <p>{{$review.Text}}</p>
+            </div>
+        </div>
+        {{end}}
+    </div>
+</div>
+
+<div class="question-section">
+    <form id="questionForm" action="/submit" method="post">
+        <input type="hidden" name="questionnaire_params" value="{{.ParamsStr}}">
+        <p class="question-text">How likely are you to purchase this product? (1=Not at all likely, {{len .Options}}=Very likely)</p>
+
+        {{range $i, $option := .Options}}
+        <label class="option">
+            <input type="radio" name="purchase_intention" value="{{$option}}" onclick="autoSubmit()" {{if eq $option $.PreviousAnswer}}checked{{end}} required> {{$option}}
+        </label>
+        {{end}}
+
+    </form>
+    {{if .UrlBase.PreviousQuestion}}
+    <button class="blue-button"
+            onclick="window.location.href='{{.UrlBase.PreviousQuestion}}'">
+        Previous Question
+    </button>
+    {{end}}
+    {{if .UrlBase.NextQuestion}}
+    <button class="submit-button"
+            onclick="window.location.href='{{.UrlBase.NextQuestion}}'">
+        Next Question
+    </button>
+    {{end}}
+    {{if .UrlBase.Finish}}
+    <button class="submit-button"
+            onclick="window.location.href='{{.UrlBase.Finish}}'">
+        Finish
+    </button>
+    {{end}}
+</div>
+
+<!-- Question Navigation Section -->
+<div class="question-navigation">
+    <h3>Navigate to Question:</h3>
+    {{range $i, $answered := .QuestionAnswerStatus}}
+    <button class="{{if eq $i $.Question.Index}}current{{else if $answered}}completed{{else}}incomplete{{end}}"
+            onclick="window.location.href='{{index $.UrlBase.Questions $i}}'">
+        {{add $i 1}}
+    </button>
+    {{end}}
+</div>
+
+</body>
+</html>
