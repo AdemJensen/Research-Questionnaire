@@ -96,11 +96,14 @@ func GenQuestionnaires(urlRoot string) ([]string, error) {
 							OperatedBy: "gen_questionnaires",
 						}
 						// generate question by type
+						avatarUris := utils.RandomPick(reviewerAvatarLists[reviewerProfileType], config.Conf.NReviews)
+						nicknames := utils.RandomPick(reviewerNicknameLists[reviewerProfileType], config.Conf.NReviews)
+						texts := utils.RandomPick(reviewTextLists[reviewValenceType][reviewDepthType], config.Conf.NReviews)
 						for j := 0; j < config.Conf.NReviews; j++ {
 							question.Content.Reviews = append(question.Content.Reviews, &dao.Review{
-								AvatarUri: reviewerAvatarLists[reviewerProfileType][rand.Intn(len(reviewerAvatarLists[reviewerProfileType]))],
-								Nickname:  reviewerNicknameLists[reviewerProfileType][rand.Intn(len(reviewerNicknameLists[reviewerProfileType]))],
-								Text:      reviewTextLists[reviewValenceType][reviewDepthType][rand.Intn(len(reviewTextLists[reviewValenceType][reviewDepthType]))],
+								AvatarUri: avatarUris[j],
+								Nickname:  nicknames[j],
+								Text:      texts[j],
 							})
 						}
 						readyQuestions = append(readyQuestions, question)
