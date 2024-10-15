@@ -53,6 +53,14 @@
             }
         }
 
+        // Function to get the font size from localStorage
+        function applySavedFontSize() {
+            const savedFontSize = localStorage.getItem('fontSize');
+            if (savedFontSize) {
+                setFontSize(savedFontSize); // Apply the saved font size if it exists
+            }
+        }
+
         function setFontSize(size) {
             const reviewsSection = document.querySelectorAll('.reviews-section');
             const reviewsContent = document.querySelectorAll('.review-content');
@@ -79,11 +87,15 @@
                     elem.style.fontSize = '28px';
                 })
             }
+
+            // Save the selected font size to localStorage
+            localStorage.setItem('fontSize', size);
         }
 
         // Display the first 3 reviews when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             showMoreReviews({{.InitialReviewsToShow}});
+            applySavedFontSize(); // Apply the saved font size when the page loads
         });
     </script>
 </head>
