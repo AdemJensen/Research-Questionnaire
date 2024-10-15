@@ -45,7 +45,7 @@
         function showMoreReviews(reviewsToShow) {
             const reviews = document.querySelectorAll('.review-item');
             for (let i = reviewIndex; i < reviewIndex + reviewsToShow && i < reviews.length; i++) {
-                reviews[i].style.display = 'flex';
+                reviews[i].style.display = 'block';
             }
             reviewIndex += reviewsToShow;
             if (reviewIndex >= reviews.length) {
@@ -142,8 +142,7 @@
     </div>
 </div>
 <div class="header-section">
-    <p class="question-text">If these are the product reviews you encounter:</p>
-<!--    <h1>Question {{add .Question.Index 1}} / {{.TotalQuestions}}</h1>-->
+    <p class="question-text">If these are the reviews you see:</p>
 </div>
 
 <div class="container">
@@ -156,10 +155,12 @@
         <h2>Reviews</h2>
         {{range $review := .Question.Content.Reviews}}
         <div class="review-item" style="display: none;">
-            <img src="/{{$review.AvatarUri}}" alt="Avatar" class="avatar">
+            <div class="review-header">
+                <img src="/{{$review.AvatarUri}}" alt="Avatar" class="avatar">
+                <div class="username-container"><strong>{{$review.Nickname}}</strong></div>
+            </div>
             <div class="review-content">
-                <strong>{{$review.Nickname}}</strong>
-                <p>{{$review.Text}}</p>
+                {{$review.Text}}
             </div>
         </div>
         {{end}}

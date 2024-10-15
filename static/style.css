@@ -37,8 +37,15 @@ h2 {
     align-items: center;
     margin-bottom: 15px;
     background-color: #e8f5e9;
-    padding: 10px;
+    padding: 25px;
     border-radius: 8px;
+}
+
+.username-container {
+    display: flex;
+    flex-direction: column; /* Stack username on top of text */
+    justify-content: center; /* Ensure both are centered vertically */
+
 }
 
 .avatar {
@@ -48,11 +55,19 @@ h2 {
     margin-right: 15px;
 }
 
+.review-header {
+    display: flex;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: solid 1px lightgray;
+}
+
 .review-content {
     font-size: 20px;
     word-wrap: normal; /* Allow the content to wrap only at whole words */
     word-break: normal; /* Avoid breaking words */
     overflow-wrap: break-word; /* Wrap at word boundaries */
+    margin-bottom: 0;
 }
 
 .question-section {
