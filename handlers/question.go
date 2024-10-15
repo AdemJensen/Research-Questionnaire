@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"researchQuestionnaire/config"
 	"researchQuestionnaire/dao"
 	"strings"
 )
@@ -34,6 +35,7 @@ type QuestionnaireRenderContext struct {
 	ParamsStr               string
 	Options                 []int
 	PreviousAnswer          int
+	InitialReviewsToShow    int
 }
 
 var funcMap = template.FuncMap{
@@ -94,6 +96,7 @@ func GetQuestionnaireRenderContext(params *Parameters) (*QuestionnaireRenderCont
 		ParamsStr:               GenerateQuestionPageParam(params.QuestionnaireID, params.QuestionIndex),
 		Options:                 []int{1, 2, 3, 4, 5, 6},
 		PreviousAnswer:          prevAnswer,
+		InitialReviewsToShow:    config.Conf.NInitialReviews,
 	}, nil
 }
 

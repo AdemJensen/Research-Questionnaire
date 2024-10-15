@@ -14,6 +14,7 @@ type Config struct {
 	NQuestionnaires int    `json:"n_questionnaires"`
 	NQuestions      int    `json:"n_questions"`
 	NReviews        int    `json:"n_reviews"`
+	NInitialReviews int    `json:"n_initial_reviews"` // We added a "show more" button to avoid showing all reviews at once
 	NOptions        int    `json:"n_options"`
 }
 

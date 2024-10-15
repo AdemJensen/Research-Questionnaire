@@ -24,6 +24,7 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	doSort := r.URL.Query().Get("sort") == "1"
 	// 从数据库中获取所有问卷答案
 	var answers []*QuestionnaireAnswer
 	allQuestionnaires, err := dao.GetAllQuestionnaires()
@@ -45,15 +46,17 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		// sort questions by type
-		slices.SortFunc(questions, func(i, j *dao.Question) int {
-			if res := strings.Compare(i.Content.ReviewerProfile, j.Content.ReviewerProfile); res != 0 {
-				return res
-			}
-			if res := strings.Compare(i.Content.ReviewValence, j.Content.ReviewValence); res != 0 {
-				return res
-			}
-			return strings.Compare(i.Content.ReviewDepth, j.Content.ReviewDepth)
-		})
+		if doSort {
+			slices.SortFunc(questions, func(i, j *dao.Question) int {
+				if res := strings.Compare(i.Content.ReviewerProfile, j.Content.ReviewerProfile); res != 0 {
+					return res
+				}
+				if res := strings.Compare(i.Content.ReviewValence, j.Content.ReviewValence); res != 0 {
+					return res
+				}
+				return strings.Compare(i.Content.ReviewDepth, j.Content.ReviewDepth)
+			})
+		}
 		// 为每个问题统计答案
 		var (
 			lastFillTime = questionnaire.CreatedAt
@@ -78,6 +81,7 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = resultsTmpl.Execute(w, &ResultsContext{
 		DisplayAll: r.URL.Query().Get("show_all") == "1",
+		Sort:       doSort,
 		Content:    answers,
 	})
 	if err != nil {
@@ -87,6 +91,7 @@ func ResultsHandler(w http.ResponseWriter, r *http.Request) {
 
 type ResultsContext struct {
 	DisplayAll bool
+	Sort       bool
 	Content    []*QuestionnaireAnswer
 }
 

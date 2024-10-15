@@ -39,21 +39,78 @@
                     alert("Failed to submit your answer. Please try again.");
                 });
         }
+
+        let reviewIndex = 0;
+
+        function showMoreReviews(reviewsToShow) {
+            const reviews = document.querySelectorAll('.review-item');
+            for (let i = reviewIndex; i < reviewIndex + reviewsToShow && i < reviews.length; i++) {
+                reviews[i].style.display = 'flex';
+            }
+            reviewIndex += reviewsToShow;
+            if (reviewIndex >= reviews.length) {
+                document.getElementById('show-more-button').style.display = 'none';
+            }
+        }
+
+        function setFontSize(size) {
+            const reviewsSection = document.querySelectorAll('.reviews-section');
+            const reviewsContent = document.querySelectorAll('.review-content');
+
+            if (size === 'normal') {
+                reviewsSection.forEach(elem => {
+                    elem.style.fontSize = '16px';
+                })
+                reviewsContent.forEach(elem => {
+                    elem.style.fontSize = '20px';
+                })
+            } else if (size === 'big') {
+                reviewsSection.forEach(elem => {
+                    elem.style.fontSize = '20px';
+                })
+                reviewsContent.forEach(elem => {
+                    elem.style.fontSize = '24px';
+                })
+            } else if (size === 'super-big') {
+                reviewsSection.forEach(elem => {
+                    elem.style.fontSize = '24px';
+                })
+                reviewsContent.forEach(elem => {
+                    elem.style.fontSize = '28px';
+                })
+            }
+        }
+
+        // Display the first 3 reviews when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            showMoreReviews({{.InitialReviewsToShow}});
+        });
     </script>
 </head>
 <body>
-<h1>Question {{add .Question.Index 1}} / {{.TotalQuestions}}</h1>
-<div class="container">
-
-    <div class="product-section">
-        <h2>Product Info</h2>
-        <img src="{{.UrlBase.ProductImage}}" alt="Product Image" class="product-image">
+<div class="text-size-changer-section">
+    <p class="question-text">If you have problem reading the text, you can change the font size: </p>
+    <div class="font-size-controls">
+        <button onclick="setFontSize('normal')">Normal</button>
+        <button onclick="setFontSize('big')">Big</button>
+        <button onclick="setFontSize('super-big')">Super Big</button>
     </div>
+</div>
+<div class="header-section">
+    <p class="question-text">If this is the product reviews you encounter:</p>
+<!--    <h1>Question {{add .Question.Index 1}} / {{.TotalQuestions}}</h1>-->
+</div>
+
+<div class="container">
+<!--    <div class="product-section">-->
+<!--        <h2>Product Info</h2>-->
+<!--        <img src="{{.UrlBase.ProductImage}}" alt="Product Image" class="product-image">-->
+<!--    </div>-->
 
     <div class="reviews-section">
         <h2>Reviews</h2>
         {{range $review := .Question.Content.Reviews}}
-        <div class="review-item">
+        <div class="review-item" style="display: none;">
             <img src="/{{$review.AvatarUri}}" alt="Avatar" class="avatar">
             <div class="review-content">
                 <strong>{{$review.Nickname}}</strong>
@@ -61,6 +118,7 @@
             </div>
         </div>
         {{end}}
+        <button id="show-more-button" onclick="showMoreReviews(999)">Show More</button>
     </div>
 </div>
 
@@ -98,7 +156,7 @@
 
 <!-- Question Navigation Section -->
 <div class="question-navigation">
-    <h3>Navigate to Question:</h3>
+    <h3>Navigate to Question ({{add .Question.Index 1}} / {{.TotalQuestions}}):</h3>
     {{range $i, $answered := .QuestionAnswerStatus}}
     <button class="{{if eq $i $.Question.Index}}current{{else if $answered}}completed{{else}}incomplete{{end}}"
             onclick="window.location.href='{{index $.UrlBase.Questions $i}}'">

@@ -24,13 +24,139 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .toggle-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-controls button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .toggle-controls button:hover {
+            background-color: #45a049;
+        }
+
+        .toggle-controls button:active {
+            transform: scale(0.98);
+        }
+
+        .comment-block {
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #eff7de;
+            min-height: 30px; /* Ensures the block has a minimum height */
+            cursor: pointer;
+            position: relative;
+        }
+
+        .comment-block[contenteditable="true"] {
+            border: 1px solid #4CAF50; /* Highlight border when editable */
+            background-color: #fff;
+        }
+
+        .comment-block:empty::before {
+            content: "Double click to add a comment"; /* Placeholder text for empty comments */
+            color: #888;
+            font-style: italic;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            pointer-events: none; /* Ensure the text doesn't interfere with clickability */
+        }
     </style>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params;
+        }
+
+        // Function to set URL parameters
+        function setUrlParams(params) {
+            window.location = window.location.pathname + '?' + params.toString(); // Reload the page
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle show_all parameter (between 0 and 1)
+            document.getElementById('toggle-show-all').addEventListener('click', function() {
+                const params = getUrlParams();
+                const showAll = params.get('show_all') === '1' ? '0' : '1'; // Toggle value between 0 and 1
+                params.set('show_all', showAll);
+                setUrlParams(params); // Update the URL
+            });
+
+            // Toggle sort parameter (between 0 and 1)
+            document.getElementById('toggle-sort').addEventListener('click', function() {
+                const params = getUrlParams();
+                const sort = params.get('sort') === '1' ? '0' : '1'; // Toggle value between 0 and 1
+                params.set('sort', sort);
+                setUrlParams(params); // Update the URL
+            });
+
+            document.querySelectorAll('.comment-block').forEach(comment => {
+                // Allow editing on double click
+                comment.addEventListener('dblclick', function() {
+                    comment.setAttribute('contenteditable', 'true'); // Make the comment block editable
+                    comment.focus(); // Focus on the comment block
+                });
+
+                // Save changes when clicking outside the comment block
+                comment.addEventListener('blur', function() {
+                    comment.removeAttribute('contenteditable'); // Remove editing capability after editing
+                    const updatedComment = comment.textContent; // Get updated comment content
+                    const questionnaireId = comment.getAttribute('data-questionnaire-id'); // Get associated questionnaire ID
+
+                    // Send the updated comment to the server via fetch or AJAX
+                    fetch(`/update-comment`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: questionnaireId,
+                            comment: updatedComment
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Comment updated successfully');
+                            } else {
+                                alert('Error updating comment');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error updating comment');
+                        });
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 
 <h1>Questionnaire Statistics</h1>
-{{range $index, $con := (index .Content 0).TypeStr}} <!-- 动态生成问题列头 -->
-<label>Q{{add $index 1}} = <{{$con}}></label>
+<div class="toggle-controls">
+    <button id="toggle-show-all">Toggle Show All</button>
+    <button id="toggle-sort">Toggle Sort</button>
+</div>
+{{if .Sort}}
+    {{range $index, $con := (index .Content 0).TypeStr}} <!-- 动态生成问题列头 -->
+    <label>Q{{add $index 1}} = <{{$con}}></label>
+    {{end}}
 {{end}}
 <table>
     <thead>
@@ -56,7 +182,9 @@
         <td>{{.CreateTime}}</td>
         <td>{{.LastFillTime}}</td>
         {{end}}
-        <td>{{.Comment}}</td> <!-- 问卷Comment -->
+        <td><div class="comment-block" data-questionnaire-id="{{.ID}}">
+            {{.Comment}}
+        </div></td> <!-- 问卷Comment -->
         {{range .Answers}} <!-- 遍历每个问卷的答案 -->
         <td>{{if not (eq . 0)}}{{.}}{{end}}</td>
         {{end}}

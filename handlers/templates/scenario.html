@@ -23,19 +23,20 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
+      max-width: 800px;
     }
 
     .scenario-container h1 {
-      font-size: 24px;
+      font-size: 36px;
       color: #333;
       margin-bottom: 20px;
     }
 
     .scenario-container p {
-      font-size: 18px;
+      font-size: 24px;
       color: #555;
       line-height: 1.6;
+      text-align: left;
     }
   </style>
 </head>
@@ -46,8 +47,10 @@
   <p>Hi, thank you for attending our research experiment, this questionnaire contains {{.TotalQuestions}} questions, estimated completion time is 6 minutes. We appreciate your patience.</p>
   <p>Your Questionnaire ID is {{.Questionnaire.ID}}</p>
   <h2>Scenario</h2>
-  <p>Imagine that you are <b>in need of a new smartphone</b>. You come across a mobile phone that <b>fits your requirements</b>, and now in the process of purchasing the phone online.</p>
-  <p>Please answer the question based on the information provided.</p>
+  <p>You are <b>in need of a new smartphone</b>. You have already checked out the product page, it suits your requirement, but you decided to take a look at the reviews before buying.</p>
+  <h2>Hint</h2>
+  <p>In this questionnaire, each question is considered <b>an individual purchase process</b>. Please address your likelihood to make a purchase on each product page.</p>
+  <p>Thank you very much!</p>
 
   {{if .IsQuestionnaireAnswered }}
   <a href="{{.UrlBase.FirstQuestion}}" class="blue-button">Resume Previous Session</a>

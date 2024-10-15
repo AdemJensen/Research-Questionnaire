@@ -40,6 +40,7 @@ func main() {
 	http.HandleFunc("/question", handlers.QuestionHandler)
 
 	http.HandleFunc("/results", handlers.ResultsHandler)
+	http.HandleFunc("/update-comment", handlers.UpdateCommentHandler)
 
 	// 处理提交回答的路由
 	http.HandleFunc("/submit", handlers.SubmitHandler)

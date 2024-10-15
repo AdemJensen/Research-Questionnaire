@@ -6,8 +6,8 @@ body {
 }
 
 .container {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
     padding: 20px;
 }
 
@@ -49,9 +49,10 @@ h2 {
 }
 
 .review-content {
-    font-size: 14px;
-    word-wrap: break-word; /* 自动换行 */
-    word-break: break-all; /* 强制打断长单词 */
+    font-size: 20px;
+    word-wrap: normal; /* Allow the content to wrap only at whole words */
+    word-break: normal; /* Avoid breaking words */
+    overflow-wrap: break-word; /* Wrap at word boundaries */
 }
 
 .question-section {
@@ -61,8 +62,22 @@ h2 {
     border-top: 2px solid #ddd;
 }
 
+.header-section {
+    background-color: #4d9e0d;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+.text-size-changer-section {
+    background-color: #c5e2ff;
+    padding: 10px;
+    text-align: center;
+    color: black;
+}
+
 .question-text {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -138,4 +153,70 @@ h2 {
 
 .question-navigation button:hover {
     background-color: #ddd;
+}
+
+/* For mobile devices - full width */
+@media (max-width: 800px) {
+    .container {
+        width: 100%;
+    }
+}
+
+/* For tablets and desktops - narrower width */
+@media (min-width: 801px) {
+    .container {
+        width: 60%; /* Adjust this percentage to suit your preferred size */
+        margin: 0 auto; /* Center it */
+    }
+}
+
+/* Beautify the "Show More" button */
+#show-more-button {
+    background-color: #ffe425; /* Green background */
+    color: #000000; /* White text */
+    padding: 12px 24px; /* Add padding */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Larger font */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+    display: inline-block;
+    margin-top: 24px; /* Space above button */
+    width: 100%
+}
+
+#show-more-button:hover {
+    background-color: #d5bd1e; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+#show-more-button:active {
+    transform: scale(0.98); /* Slightly shrink the button when pressed */
+}
+
+/* Font size control buttons */
+.font-size-controls {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.font-size-controls button {
+    background-color: #125be3; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Add padding */
+    margin: 5px;
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.font-size-controls button:hover {
+    background-color: #124de3; /* Darker green on hover */
+}
+
+.font-size-controls button:active {
+    transform: scale(0.98); /* Slight shrink on press */
 }
