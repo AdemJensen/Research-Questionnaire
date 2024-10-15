@@ -64,6 +64,7 @@
         function setFontSize(size) {
             const reviewsSection = document.querySelectorAll('.reviews-section');
             const reviewsContent = document.querySelectorAll('.review-content');
+            const reviewsAvatar = document.querySelectorAll('.avatar');
 
             if (size === 'normal') {
                 reviewsSection.forEach(elem => {
@@ -72,6 +73,10 @@
                 reviewsContent.forEach(elem => {
                     elem.style.fontSize = '20px';
                 })
+                reviewsAvatar.forEach(elem => {
+                    elem.style.width = '50px';
+                    elem.style.height = '50px';
+                })
             } else if (size === 'big') {
                 reviewsSection.forEach(elem => {
                     elem.style.fontSize = '20px';
@@ -79,12 +84,20 @@
                 reviewsContent.forEach(elem => {
                     elem.style.fontSize = '24px';
                 })
+                reviewsAvatar.forEach(elem => {
+                    elem.style.width = '62px';
+                    elem.style.height = '62px';
+                })
             } else if (size === 'super-big') {
                 reviewsSection.forEach(elem => {
                     elem.style.fontSize = '24px';
                 })
                 reviewsContent.forEach(elem => {
                     elem.style.fontSize = '28px';
+                })
+                reviewsAvatar.forEach(elem => {
+                    elem.style.width = '75px';
+                    elem.style.height = '75px';
                 })
             }
 
