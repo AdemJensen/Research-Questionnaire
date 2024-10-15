@@ -92,10 +92,30 @@
             localStorage.setItem('fontSize', size);
         }
 
+
+
         // Display the first 3 reviews when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             showMoreReviews({{.InitialReviewsToShow}});
             applySavedFontSize(); // Apply the saved font size when the page loads
+
+            var header = document.querySelector('.header-section');
+            var sticky = header.offsetTop;
+
+            // Add the sticky class to the header when you reach its scroll position.
+            // Remove the sticky class when you leave the scroll position.
+            function toggleStickyHeader() {
+                if (window.scrollY > sticky) {
+                    header.classList.add('sticky');
+                } else {
+                    header.classList.remove('sticky');
+                }
+            }
+
+            // When the user scrolls the page, execute the function
+            window.onscroll = function() {
+                toggleStickyHeader();
+            };
         });
     </script>
 </head>
@@ -109,7 +129,7 @@
     </div>
 </div>
 <div class="header-section">
-    <p class="question-text">If this is the product reviews you encounter:</p>
+    <p class="question-text">If these are the product reviews you encounter:</p>
 <!--    <h1>Question {{add .Question.Index 1}} / {{.TotalQuestions}}</h1>-->
 </div>
 

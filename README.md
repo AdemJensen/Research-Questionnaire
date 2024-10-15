@@ -2,6 +2,8 @@
 
 This is a research questionnaire program specifically designed for the research project "Examining the Impact of Cues from Fake Reviews on Consumer Purchase Intention in Online Shopping"
 
+The majority of this project codes are written by GPT, thanks to GPT for his contribution.
+
 ## Build from source
 To build this from source, you need to have go toolchain version greater than 1.23.2 installed.
 

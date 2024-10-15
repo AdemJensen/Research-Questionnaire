@@ -69,6 +69,14 @@ h2 {
     color: white;
 }
 
+.header-section.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays on top */
+    box-shadow: 0 4px 2px -2px gray; /* Adds a subtle shadow when sticky */
+}
+
 .text-size-changer-section {
     background-color: #c5e2ff;
     padding: 10px;
