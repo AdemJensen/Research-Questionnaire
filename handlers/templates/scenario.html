@@ -44,12 +44,13 @@
 
 <div class="scenario-container">
   <h1>Questionnaire of Research</h1>
-  <p>Hi, thank you for attending our research experiment, this questionnaire contains {{.TotalQuestions}} questions, estimated completion time is 6 minutes. We appreciate your patience.</p>
-  <p>Your Questionnaire ID is {{.Questionnaire.ID}}</p>
+  <p>Hi, thank you for attending our research experiment, this survey contains {{.TotalQuestions}} questions, and should take approximately 6 minutes to complete. Your responses will remain anonymous, please feel free to answer as honestly as possible.</p>
+<!--  <p>Your Questionnaire ID is {{.Questionnaire.ID}}</p>-->
   <h2>Scenario</h2>
-  <p>You are <b>in need of a new smartphone</b>. You have already checked out the product page, it suits your requirement, but you decided to take a look at the reviews before buying.</p>
-  <h2>Hint</h2>
-  <p>In this questionnaire, each question is considered <b>an individual purchase process</b>. Please address your likelihood to make a purchase on each product page.</p>
+  <p>You are currently <b>looking to buy a new smartphone</b>. You’ve already reviewed the product details, and it seems to meet your needs. However, before making a final decision, you want to check the <b>customer reviews</b>.</p>.
+  <h2>Important Note</h2>
+  <p>Each question in this survey represents a <b>separate purchase decision</b>. Although the product may appear the same, the <b>reviews on each page differ</b>. </p>
+  <p>Please consider each set of reviews <b>independently</b> and make a unique purchase decision for each page, as if you are encountering the product for the first time.</p>
   <p>Thank you very much!</p>
 
   {{if .IsQuestionnaireAnswered }}
